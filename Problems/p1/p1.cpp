@@ -185,10 +185,10 @@ TEST_CASE("test_case_4") {
     string file_path = __FILE__;
     string dir_path = file_path.substr(0, file_path.rfind('/'));
 
-    string q_file = dir_path + "/p1q4.json";
+    string q_file = dir_path + "/q.json";
     vector<int> question = loadJsonVectorInt(q_file);
 
-    string a_file = dir_path + "/p1a4.json";
+    string a_file = dir_path + "/a.json";
     vector<vector<int>> answer = loadJsonVectorVectorInt(a_file);
 
     Solution_1 solution1;
