@@ -95,10 +95,11 @@ std::vector<int> loadJsonVectorInt(const std::string& filename) {
     return result;
 }
 
-bool compare_results(const std::vector<std::vector<int>>& vv_a,
+bool compareVectorVectorInts(const std::vector<std::vector<int>>& vv_a,
                      const std::vector<std::vector<int>>& vv_b) {
 
-    //convert vector<vector<int>> to set<set<int>>
+    bool pass = true;
+
     set<set<int>> ss_a;
     for (auto v_a : vv_a) {
         set<int> s_a(v_a.begin(), v_a.end());
@@ -125,28 +126,37 @@ bool compare_results(const std::vector<std::vector<int>>& vv_a,
         }
     }
 
-    cout << "number of sets in A: " << ss_a.size() << endl;
-    cout << "number of sets in B: " << ss_b.size() << endl;
-
-    cout << "sets in A that are not in B: " << endl;
-    for (const auto& s_a_not_in_b : ss_a_not_in_b) {
-        cout << "[";
-        for (auto a_not_in_b : s_a_not_in_b) {
-            cout << a_not_in_b << ", ";
-        }
-        cout << "]" << endl;
+    if (ss_a.size() != ss_b.size()) {
+        pass = false;
+        cout << "number of sets in A: " << ss_a.size() << endl;
+        cout << "number of sets in B: " << ss_b.size() << endl;
     }
 
-    cout << "sets in B that are not in A: " << endl;
-    for (const auto& s_b_not_in_a : ss_b_not_in_a) {
-        cout << "[";
-        for (auto b_not_in_a : s_b_not_in_a) {
-            cout << b_not_in_a << ", ";
+    if (!ss_a_not_in_b.empty()) {
+        pass = false;
+        cout << "sets in A that are not in B: " << endl;
+        for (const auto &s_a_not_in_b: ss_a_not_in_b) {
+            cout << "[";
+            for (auto a_not_in_b: s_a_not_in_b) {
+                cout << a_not_in_b << ", ";
+            }
+            cout << "]" << endl;
         }
-        cout << "]" << endl;
     }
 
-    return false;
+    if (!ss_b_not_in_a.empty()) {
+        pass = false;
+        cout << "sets in B that are not in A: " << endl;
+        for (const auto &s_b_not_in_a: ss_b_not_in_a) {
+            cout << "[";
+            for (auto b_not_in_a: s_b_not_in_a) {
+                cout << b_not_in_a << ", ";
+            }
+            cout << "]" << endl;
+        }
+    }
+
+    return pass;
 }
 
 TEST_CASE("test_case_1"){
@@ -173,25 +183,18 @@ TEST_CASE("test_case_3"){
 TEST_CASE("test_case_4") {
 
     string file_path = __FILE__;
-    cout<<"file_path:" << file_path<<endl;
     string dir_path = file_path.substr(0, file_path.rfind('/'));
-    cout<<"dir_path:"<<dir_path<<endl;
 
     string q_file = dir_path + "/p1q4.json";
-    cout << "q_file:" << q_file << endl;
     vector<int> question = loadJsonVectorInt(q_file);
 
     string a_file = dir_path + "/p1a4.json";
-    cout << "a_file:" << a_file << endl;
     vector<vector<int>> answer = loadJsonVectorVectorInt(a_file);
 
     Solution_1 solution1;
     vector<vector<int>> result = solution1.threeSum(question);
 
-    compare_results(answer, result);
-//    CHECK(solution1.threeSum(q4) == a4);
-
-
+    CHECK(compareVectorVectorInts(answer, result));
 
 }
 
