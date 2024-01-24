@@ -11,11 +11,7 @@ include_directories(Solutions)
 add_subdirectory(Solutions)
 target_link_libraries(Solutions_run Solutions)
 
-#include_directories(rapidjson)
-#add_subdirectory(rapidjson)
-##target_link_libraries(rapidjson_run rapidjson)
-
 include("${CMAKE_SOURCE_DIR}/vendor/rapidjson.cmake")
 include_directories(${RAPIDJSON_INCLUDE_DIR})
 
-add_subdirectory(Tests)
+add_subdirectory(Problems)

@@ -1,10 +1,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
+#include "../doctest.h"
 
 #include "solution_1.h"
 
-#include <rapidjson/document.h>
-#include <rapidjson/filereadstream.h>
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
 
 #include<iostream>
 #include<sstream>
