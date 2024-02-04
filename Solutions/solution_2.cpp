@@ -1,67 +1,72 @@
-
 #include "solution_2.h"
 
-#include <iostream>     // std::cout
-#include <algorithm>    // std::sort
-#include <vector>       // std::vector
-#include <map>          // std::map
-#include <set>
+#include <iostream>
+#include <cmath>
 
-using std::vector;
-using std::map;
-using std::set;
+Solution_2::Solution_2() = default;
 
-Solution_2::Solution_2()= default;
+std::string Solution_2::float_to_string(float value, int decimal_places) {
 
-vector<vector<int>> Solution_2::threeSum(vector<int>& nums_) {
-    set<vector<int>> triplets;
+    //// Print a floating-point number
+    //// If decimal_precision == 0: print the minimum precision required to represent the value
+    //// If decimal_precision > 0: print exactly the specified number of digits following the decimal point, rounding as necessary
+    std::string result;
+    int sign = 1;
+    if (value < 0) {
+        value = -value;
+        sign = -1;
+    }
 
-    vector<int> nums;
-    map<int, int> count; // {value, index}
-    for (int idx = 0; idx < nums_.size(); ++idx) {
-        count[nums_.at(idx)] += 1;
-        if (count[nums_.at(idx)] < 4)
-        {
-            nums.push_back(nums_.at(idx));
+    int whole = (int) (value);
+    float decimal = value - (float) whole ;
+
+    if (decimal_places < 0 || decimal_places > 7 ) {
+        decimal_places = 7;
+    }
+
+    if (decimal_places == 0) {
+        float diff = 1.0;
+        while (fabs(diff) > 0.01) {
+            decimal *= 10;
+            diff = (float) (int) (decimal) - decimal;
+            decimal_places++;
         }
-    }
-    sort(nums.begin(), nums.end());
-
-    map<int, int> value_to_index_map; // {value, index}
-    for (int idx = 0; idx < nums.size(); ++idx) {
-        value_to_index_map.insert({nums.at(idx), idx});
-    }
-
-    int i = 0, j = 1, k = 2;
-    int target_j_k;
-    int target_k;
-
-    for (i = 0; i < j; i++) {
-        // if (nums[i] > 0) {
-        //     // array is sorted, all negative targets have been tried, only positives remain.
-        //     break;
-        // }
-        target_j_k = -nums[i];
-        for (j = i + 1; j < nums.size() - 1; j++) {
-            // if (nums[j] + nums[j + 1] > target_j_k)
-            // {
-            //     break;
-            // }
-            if (value_to_index_map.count(-nums[i] - nums[j]) == 1) {
-                int idx = value_to_index_map[-nums[i] - nums[j]];
-                if (idx != i && idx != j) {
-                    vector<int> triplet{nums[i], nums[j], -nums[i] - nums[j]};
-                    sort(triplet.begin(), triplet.end());
-                    triplets.insert(triplet);
-                }
-            }
+    } else {
+        for (int i = 0; i < decimal_places; i++) {
+            decimal *= 10;
         }
     }
 
-    vector<vector<int>> triplets_vector;
-    for (auto v : triplets) {
-        triplets_vector.push_back(v);
+    int int_decimal = (int) decimal;
+    float remainder = decimal - int_decimal;
+
+    if (remainder >= 0.5) {
+        int_decimal += 1;
     }
 
-    return triplets_vector;
+    for (int i = 0; i < decimal_places; i++) {
+        result.insert(0, 1, char (0x30 + int_decimal % 10));
+        int_decimal /= 10;
+    }
+
+    // if the rounding step added a digit, it should flow
+    // over the decimal point into the whole number.
+    if (int_decimal > 0) {
+        whole += 1;
+    }
+
+    result.insert(0, 1, '.');
+
+    while (whole > 0) {
+        int num = whole % 10;
+        result.insert(0, 1, char (0x30 + num));
+
+        whole /= 10;
+    }
+
+    if (sign < 0) {
+        result.insert(0, 1, '-');
+    }
+
+    return result;
 };

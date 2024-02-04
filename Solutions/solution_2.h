@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <string>
 using std::vector;
 
 
@@ -11,7 +12,7 @@ protected:
 
 public:
     Solution_2();
-    vector<vector<int>> threeSum(vector<int>& nums);
+    std::string float_to_string(float value, int decimal_places);
 
 };
 
