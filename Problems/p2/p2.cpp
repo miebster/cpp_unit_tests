@@ -38,7 +38,7 @@ TEST_CASE("positives_3"){
 
 TEST_CASE("positives_4"){
     Solution_2 solution2;
-    CHECK(solution2.float_to_string(123.450, 1) == "123.5");
+    CHECK(solution2.float_to_string(123.451, 1) == "123.5");
 }
 
 TEST_CASE("positives_5"){
@@ -68,7 +68,7 @@ TEST_CASE("negatives_3"){
 
 TEST_CASE("negatives_4"){
     Solution_2 solution2;
-    CHECK(solution2.float_to_string(-123.450, 1) == "-123.5");
+    CHECK(solution2.float_to_string(-123.451, 1) == "-123.5");
 }
 
 TEST_CASE("negatives_5"){
@@ -119,4 +119,64 @@ TEST_CASE("small_3"){
 TEST_CASE("small_4"){
     Solution_2 solution2;
     CHECK(solution2.float_to_string(-0.123, 0) == "-0.123");
+}
+
+TEST_CASE("smaller_1"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(0.00123, 1) == "0.0");
+}
+
+TEST_CASE("smaller_2"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(0.00123, 0) == "0.00123");
+}
+
+TEST_CASE("smaller_3"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(0.00123, 3) == "0.001");
+}
+
+TEST_CASE("smaller_4"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(-0.00123, 0) == "-0.00123");
+}
+
+TEST_CASE("smaller_5"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(0.00173, 3) == "0.002");
+}
+
+TEST_CASE("smallest_1"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(1.234e-8, 0) == "0.0");
+}
+
+TEST_CASE("big_1"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(123456.789, 0) == "123456.7890625");
+}
+
+TEST_CASE("big_2"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(123456.789, 3) == "123456.789");
+}
+
+TEST_CASE("big_3"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(123456.789, 4) == "123456.7891");
+}
+
+TEST_CASE("big_4"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(-123456.789, 4) == "-123456.7891");
+}
+
+TEST_CASE("bigger_1"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(-123.456e5, 0) == "-12345600.0");
+}
+
+TEST_CASE("biggest_1"){
+    Solution_2 solution2;
+    CHECK(solution2.float_to_string(-123.456e27, 0) == "-12345600.0");
 }

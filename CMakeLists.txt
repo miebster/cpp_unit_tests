@@ -16,3 +16,4 @@ include_directories(${RAPIDJSON_INCLUDE_DIR})
 
 add_subdirectory(Problems/p1)
 add_subdirectory(Problems/p2)
+add_subdirectory(Problems/p3)
