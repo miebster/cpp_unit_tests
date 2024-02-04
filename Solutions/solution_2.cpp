@@ -57,6 +57,10 @@ std::string Solution_2::float_to_string(float value, int decimal_places) {
 
     result.insert(0, 1, '.');
 
+    if (whole == 0) {
+        result.insert(0, 1, char (0x30));
+    }
+
     while (whole > 0) {
         int num = whole % 10;
         result.insert(0, 1, char (0x30 + num));
