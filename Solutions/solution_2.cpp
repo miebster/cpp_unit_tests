@@ -38,9 +38,8 @@ std::string Solution_2::float_to_string(float value, int decimal_places) {
     }
 
     int int_decimal = (int) decimal;
-    float remainder = decimal - int_decimal;
 
-    if (remainder >= 0.5) {
+    if ((decimal - int_decimal) >= 0.5) {
         int_decimal += 1;
     }
 
